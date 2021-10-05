@@ -1,5 +1,19 @@
 #include "Proj_Int.h"
 
+void Print_labyrinth(int** labyrinth)
+{
+    int i=0, j=0;
+
+
+
+
+
+
+
+}
+
+
+
 int main(int argc, char *argv[])
 {
 
