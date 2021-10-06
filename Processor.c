@@ -33,15 +33,47 @@ int mode_A2(int a, int b, int **labyrinth, int L, int C)
     return 0;
 }
 
-int mode_A3(int a, int b)
+int mode_A3(int a, int b, int **labyrinth, int L, int C)
 {
 
+    int i = 0, x = 0, y = 0;
+    if ((a > (L - 1) || a < 0 || b > (C - 1) || b < 0))
+    {
+        return -2;
+    }
+
+    int vetor[][2] = {(0, 0), (1, -1), (1, 0), (1, 1), (-1, 0), (0, 1), (-1, -1), (-1, 0), (-1, 1)}; //vector that check the neighbourhood
+    for (i = 0; i < 8; i++)
+    {
+        y = a + vetor[i][1];
+        x = b + vetor[i][0];
+        if (x > (L - 1) || x < 0 || y > (C - 1) || y < 0)
+            return -2;
+        if (labyrinth[x][y] > 0)
+            return 1;
+    }
     return 0;
 }
 
-int mode_A4(int a, int b)
+int mode_A4(int a, int b, int **labyrinth, int L, int C)
 {
 
+    int i = 0, x = 0, y = 0;
+    if ((a > (L - 1) || a < 0 || b > (C - 1) || b < 0))
+    {
+        return -2;
+    }
+
+    int vetor[][2] = {(0, 0), (1, -1), (1, 0), (1, 1), (-1, 0), (0, 1), (-1, -1), (-1, 0), (-1, 1)}; //vector that check the neighbourhood
+    for (i = 0; i < 8; i++)
+    {
+        y = a + vetor[i][1];
+        x = b + vetor[i][0];
+        if (x > (L - 1) || x < 0 || y > (C - 1) || y < 0)
+            return -2;
+        if (labyrinth[x][y] == -1)
+            return 1;
+    }
     return 0;
 }
 
@@ -71,11 +103,11 @@ int choose_test(int test_mode, int **labyrinth, int L, int C, int a, int b)
         break;
 
     case 3:
-        mode_A3(a, b);
+        mode_A3(a, b, labyrinth, L, C);
         break;
 
     case 4:
-        mode_A4(a, b);
+        mode_A4(a, b, labyrinth, L, C);
         break;
 
     case 5:
