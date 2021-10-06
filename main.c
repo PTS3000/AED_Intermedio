@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     int **labyrinth = NULL;
     FILE *fp = NULL;
 
-    if (argc!= 3)
+    if (argc != 3)
     {
         help();
         exit(0);
@@ -21,16 +21,14 @@ int main(int argc, char *argv[])
 
     while ((opt = getopt(argc, argv, "shq")) != -1)
     {
-        
     }
-        //FIXME: inside a loop
-        labyrinth = Read_input_file(fp, argv[2], &test_mode);
-        //Print_labyrinth(labyrinth);
-        //Processing(labyrinth);
-        //Write_output_file();
-        printf("SUCESSO");
-        return 0;
-    
+    //FIXME: inside a loop
+    labyrinth = Read_input_file(fp, labyrinth, argv[2], &test_mode);
+    //Print_labyrinth(labyrinth);
+    //Processing(labyrinth);
+    //Write_output_file();
+    printf("SUCESSO");
+    return 0;
 }
 
 /**
