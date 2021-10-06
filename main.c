@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 
     int opt = 0, test_mode = 0;
     int **labyrinth = NULL;
+    int C = 0, L = 0, a = 0, b = 0, c = 0, d = 0; // C=columns, L=lines, (a,b)=coordinates of the cell we want to analyse, P= number of grey/black cells
     FILE *fp = NULL;
 
     if (argc != 3)
@@ -19,11 +20,8 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    while ((opt = getopt(argc, argv, "shq")) != -1)
-    {
-    }
     //FIXME: inside a loop
-    labyrinth = Read_input_file(fp, labyrinth, argv[2], &test_mode);
+    labyrinth = Read_input_file(fp, labyrinth, argv[2], &test_mode, &L, &C, &a, &b ,&c ,&d);
     //Print_labyrinth(labyrinth);
     //Processing(labyrinth);
     //Write_output_file();

@@ -9,10 +9,10 @@
  * @return int** 
  */
 
-int **Read_input_file(FILE *fp, int **labyrinth, char *filename, int *test_mode)
+int **Read_input_file(FILE *fp, int **labyrinth, char *filename, int *test_mode, int *L, int *C, int *a, int *b, int *c, int *d)
 {
-    int C = 0, L = 0, a = 0, b = 0, P = 0;    // C=columns, L=lines, (a,b)=coordinates of the cell we want to analyse, P= number of grey/black cells
-    int i, k, x = 0, y = 0, v = 0, count = 0; // (x,y) = grey/black cells coordinates, v=value of respective cell
+    int C = 0, L = 0, a = 0, b = 0, c = 0, d = 0, P = 0; // C=columns, L=lines, (a,b)=coordinates of the cell we want to analyse, P= number of grey/black cells
+    int i, k, x = 0, y = 0, v = 0, count = 0;            // (x,y) = grey/black cells coordinates, v=value of respective cell
 
     if ((fp = fopen(filename, "r")) == NULL) //inicio da leitura do ficheiro
     {
@@ -22,21 +22,19 @@ int **Read_input_file(FILE *fp, int **labyrinth, char *filename, int *test_mode)
     }
     k = fscanf(fp, "%d %d", &L, &C);
     k = fscanf(fp, "%d %d A%d", &a, &b, &*test_mode);
-
+    if (*test_mode == 6)
+        fscanf(fp, "%d %d", &c, &d);
     // Dynamic allocation of the main labyrinth
 
-    labyrinth = (int **)calloc(L, sizeof(int *));
+    labyrinth = (int **)calloc(L, sizeof(int *));   //allocates lines 
     for (i = 0; i < L; i++)
-        labyrinth[i] = (int *)calloc(C, sizeof(int));
+        labyrinth[i] = (int *)calloc(C, sizeof(int));   //allocates columns
 
     k = fscanf(fp, "%d", &P);
     while ((fscanf(fp, "%d %d %d", &x, &y, &v) == 3) && (count < P))
     {
-        if (v > 0)
-        {
-            labyrinth[x - 1][y - 1] = v; //remember that the coordinate (0,0) represents the (1,1) cell
-            count++;
-        }
+        labyrinth[x - 1][y - 1] = v;        //remember that the coordinate (0,0) represents the (1,1) cell
+        count++;
     }
     return labyrinth;
 }

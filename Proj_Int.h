@@ -8,7 +8,7 @@
 
 
 int main(int argc, char *argv[]);
-int ** Read_input_file(FILE *fp, int **labyrinth, char *filename, int *test_mode);
+int** Read_input_file(FILE *fp, int **labyrinth, char *filename, int *test_mode, int* L, int* C, int* a, int* b, int* c, int* d);
 void help(void);
 
 
