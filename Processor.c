@@ -33,13 +33,13 @@ int mode_A3(int a, int b, int **labyrinth, int L, int C) //any grey cell
     int i, x = 0, y = 0;
     int vetor[][2] = {{0, 0}, {1, -1}, {1, 0}, {1, 1}, {-1, 0}, {0, 1}, {-1, -1}, {-1, 0}, {-1, 1}}; //vector that check the neighbourhood
 
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < sizeof(vetor[5][2]/(2*sizeof(int))); i++)
     {
         y = a + vetor[i][0];
         x = b + vetor[i][1];
         if (x > L || x < 0 || y > C || y < 0)
             return -2;
-        if (labyrinth[x - 1][y - 1] > 0)
+        if (labyrinth[x][y] > 0)
             return 1;
     }
     return 0;
@@ -51,15 +51,15 @@ int mode_A4(int a, int b, int **labyrinth, int L, int C) //any black cell
     int i, x = 1, y = 1;
     int vetor[][2] = {{0, 0}, {1, -1}, {1, 0}, {1, 1}, {-1, 0}, {0, 1}, {-1, -1}, {-1, 0}, {-1, 1}}; //vector that check the neighbourhood
 
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < sizeof(vetor[5][2]/(2*sizeof(int))); i++)
     {
         y = a + vetor[i][0];
         x = b + vetor[i][1];
         if (x > L || x < 0 || y > C || y < 0)
             return -2;
-        if (labyrinth[x - 1][y - 1] == -1)
+        if (labyrinth[x][y] == -1)
         {
-            printf("x-1:%d y-1:%d v:%d\n", x - 1, y - 1, labyrinth[x - 1][y - 1]);
+            printf("x-1:%d y-1:%d v:%d\n", x - 1, y - 1, labyrinth[x][y]);
             return 1;
         }
     }
@@ -68,25 +68,34 @@ int mode_A4(int a, int b, int **labyrinth, int L, int C) //any black cell
 
 int mode_A5(int a, int b, int **labyrinth, int L, int C)
 {
-    int i, x = 1, y = 1;
-    int vetor[][2] = {{0, 0}, {1, 0}, {0, 1}, {-1, 0}, {0, -1}}; //Center-North-West-South-East
+    if(labyrinth[a-1][b-1] <= 0)return -1;
+    if (((0 < a) && (a < L)) && ((0 < b) && (b < C))){
 
-    for (i = 0; i < 5; i++)
-    {
-        y = a + vetor[i][0];
-        x = b + vetor[i][1];
-        if ((i == 0 && (labyrinth[x - 1][y - 1] == 0 || labyrinth[x - 1][y - 1] == -1)) && (x > L || x < 0 || y > C || y < 0))
-            return -1;
-        if (labyrinth[x - 1][y - 1] == -1)
+        if ((labyrinth[a-2][b-1] == 0 && labyrinth[a][b-1] == 0) || (labyrinth[a-1][b-2] == 0 && labyrinth[a-1][b] == 0))
             return 1;
     }
+    if ((a == 1 && b == 1) || (a == L && b == C) || (a == L && b == 1) || (a == C && b == 1))return 0;
+    if ((a == 1) || (a == L)){
+
+        if ((labyrinth[a-2][b-1] == 0 && labyrinth[a][b-1] == 0))
+            return 1;
+    }
+
+    if ((b == 1) || (b == C)){
+
+        if ((labyrinth[a-2][b-1] == 0 && labyrinth[a][b-1] == 0))
+            return 1;
+    }
+
+
+
     return 0;
 }
 
 int mode_A6(int a, int b)
 {
 
-    return 0;
+    return 0;    
 }
 
 int choose_test(int test_mode, int **labyrinth, int L, int C, int a, int b)
