@@ -45,13 +45,13 @@ void write_output_file(FILE *fp_out, int result, char *filename)
     }
     strcpy(name, filename);
     strcat(name, ".sol1");
-    if ((fp_out = fopen(name, "w")) == NULL) //inicio da leitura do ficheiro
+    if ((fp_out = fopen(name, "a")) == NULL) //inicio da leitura do ficheiro
     {
         printf("Error when writing the output file.\n");
         fclose(fp_out);
         exit(EXIT_FAILURE);
     }
-    fprintf(fp_out, "%d\n", result);
+    fprintf(fp_out, "%d\n\n", result);
     free(name);
     fclose(fp_out);
 }

@@ -9,15 +9,18 @@
  * @return int** 
  */
 
-int **Read_input_file(FILE *fp_in, int **labyrinth, char *filename, int *test_mode, int *L, int *C, int *a, int *b, int *c, int *d)
+int **Read_input_file(FILE *fp_in, int **labyrinth, char *filename, int *test_mode, int *L, int *C, int *a, int *b, int *c, int *d, int *keep_r)
 {
     int i, x = 0, y = 0, v = 0, count = 0, P = 0; //P= number of grey/black cells, (x,y) = grey/black cells coordinates, v=value of respective cell
 
-    if ((fp_in = fopen(filename, "r")) == NULL) //inicio da leitura do ficheiro
+    if (fp_in == NULL)
     {
-        printf("Error when reading the input file.\n");
-        fclose(fp_in);
-        exit(EXIT_FAILURE);
+        if ((fp_in = fopen(filename, "r")) == NULL) //inicio da leitura do ficheiro
+        {
+            printf("Error when reading the input file.\n");
+            fclose(fp_in);
+            exit(EXIT_FAILURE);
+        }
     }
     fscanf(fp_in, "%d %d", &*L, &*C);
     fscanf(fp_in, "%d %d A%d", &*a, &*b, &*test_mode);
@@ -35,7 +38,8 @@ int **Read_input_file(FILE *fp_in, int **labyrinth, char *filename, int *test_mo
         labyrinth[x - 1][y - 1] = v; //remember that the coordinate (0,0) represents the (1,1) cell
         count++;
     }
-    fclose(fp_in);
+    if ((*keep_r = feof(fp_in)) != 0)
+        fclose(fp_in);
     return labyrinth;
 }
 
