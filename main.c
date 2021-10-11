@@ -2,13 +2,12 @@
 
 int main(int argc, char *argv[])
 {
-    FILE *fp_in = NULL;
     if (argc != 3)
     {
         help();
         exit(0);
     }
-    Read_input_file(fp_in, argv[2]);
+    Read_input_file(argv[2]);
 
     return 0;
 }

@@ -47,16 +47,7 @@ int find_last_period(char *filename)
     }
     return value;
 }
-void write_output_file(char *name, int result)
+void write_output(FILE *fp_out, int result)
 {
-    FILE *fp_out = NULL;
-    if ((fp_out = fopen(name, "a")) == NULL) //inicio da leitura do ficheiro
-    {
-        printf("Error when writing the output file.\n");
-        free(name);
-        exit(EXIT_FAILURE);
-    }
     fprintf(fp_out, "%d\n\n", result);
-    free(name);
-    fclose(fp_out);
 }
