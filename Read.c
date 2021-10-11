@@ -11,6 +11,13 @@
 
 int **Read_input_file(FILE *fp_in, int **labyrinth, char *filename)
 {
+    
+    int **traversed_path = NULL;
+    int *size_traversed = NULL;
+
+
+
+
     int x = 0, y = 0, v = 0, count = 0, P = 0, result = 0;      //P= number of grey/black cells, (x,y) = grey/black cells coordinates, v=value of respective cell
     int C = 0, L = 0, a = 0, b = 0, c = 0, d = 0, num_char = 0; // C=columns, L=lines, (a,b)=coordinates of the cell we want to analyse, P= number of grey/black cells
     char *test_mode = (char *)calloc(3, sizeof(char));
@@ -59,7 +66,7 @@ int **Read_input_file(FILE *fp_in, int **labyrinth, char *filename)
             count++;
         }
         //print_table(labyrinth, L, C);
-        result = choose_test(test_mode, labyrinth, L, C, a, b);
+        result = choose_test(test_mode, labyrinth, L, C, a, b, c, d, traversed_path, size_traversed);
         write_output_file(name, result, filename);
         free_labyrinth(labyrinth, L, C);
         count = 0;
