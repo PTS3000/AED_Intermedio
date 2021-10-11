@@ -21,6 +21,7 @@ void Read_input_file(FILE *fp_in, char *filename)
     if ((fp_in = fopen(filename, "r")) == NULL) //inicio da leitura do ficheiro
     {
         printf("Error when reading the input file.\n");
+        free(out_name);
         exit(0);
     }
 
@@ -37,7 +38,7 @@ void Read_input_file(FILE *fp_in, char *filename)
 
         if ((fscanf(fp_in, "%d", &P)) != 1)
         {
-            free_labyrinth(labyrinth, L, C);
+            free_labyrinth(labyrinth, C);
             error(fp_in);
         }
         while ((fscanf(fp_in, "%d %d %d", &x, &y, &v) == 3) && (count < P))
@@ -45,17 +46,17 @@ void Read_input_file(FILE *fp_in, char *filename)
             labyrinth[x - 1][y - 1] = v; //remember that the coordinate (0,0) represents the (1,1) cell
             count++;
         }
-        print_table(labyrinth, L, C);
+        //print_table(labyrinth, L, C);
         result = choose_test(test_mode, labyrinth, L, C, a, b);
         write_output_file(out_name, result);
-        free_labyrinth(labyrinth, L, C);
+        free_labyrinth(labyrinth, C);
         count = 0;
     }
     fclose(fp_in);
     return;
 }
 
-void free_labyrinth(int **labyrinth, int L, int C)
+void free_labyrinth(int **labyrinth, int C)
 {
     int i;
     for (i = 0; i < C; i++)

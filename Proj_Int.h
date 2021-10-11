@@ -16,7 +16,7 @@ int mode_A5(int a, int b, int **labyrinth, int L, int C);
 int mode_A6(int a, int b);
 int choose_test(char *test_mode, int **labyrinth, int L, int C, int a, int b);
 void print_table(int **labyrinth, int L, int C);
-void free_labyrinth(int **labyrinth, int L, int C);
+void free_labyrinth(int **labyrinth, int C);
 void write_output_file(char *name,int result);
 void str_paste(char *name, char *filename, int num_chars);
 int find_last_period(char *filename);

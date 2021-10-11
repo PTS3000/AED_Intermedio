@@ -50,7 +50,6 @@ int find_last_period(char *filename)
 void write_output_file(char *name, int result)
 {
     FILE *fp_out = NULL;
-    printf("%s\n",name);
     if ((fp_out = fopen(name, "a")) == NULL) //inicio da leitura do ficheiro
     {
         printf("Error when writing the output file.\n");
