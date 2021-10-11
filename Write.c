@@ -35,16 +35,22 @@ void print_table(int **labyrinth, int L, int C)
     }
 }
 
-void write_output_file(FILE *fp_out, int result, char *filename)
+int find_last_period(char *filename)
 {
-    char *name = (char *)malloc((strlen(filename) + 6) * sizeof(char));
-    if (name == NULL)
+    char *buffer = NULL;
+    int value = 0, n_chars = 0;
+    for (buffer = filename; *buffer != '\0'; buffer++)
     {
-        fprintf(stderr, "Not enough memory available!\n");
-        exit(5);
+        n_chars++;
+        if (*buffer == '.')
+            value = n_chars;
     }
-    strcpy(name, filename);
-    strcat(name, ".sol1");
+    return value;
+}
+void write_output_file(char *name,int result, char *filename)
+{
+    FILE *fp_out=NULL;
+
     if ((fp_out = fopen(name, "a")) == NULL) //inicio da leitura do ficheiro
     {
         printf("Error when writing the output file.\n");
