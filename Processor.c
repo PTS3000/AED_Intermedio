@@ -99,7 +99,7 @@ int mode_A5(int a, int b, int **labyrinth, int L, int C)
 int traversed(int x, int y, int **traversed_path, int L, int C, int *size_traversed)
 {
     int i;
-    for (i = 0; i < size_traversed; i++)
+    for (i = 0; i < (*size_traversed); i++)
     {
         if (x == traversed_path[i][0] && y == traversed_path[i][1]) return 1;
     }
@@ -108,9 +108,10 @@ int traversed(int x, int y, int **traversed_path, int L, int C, int *size_traver
 
 int try(int x,int y, int **labyrinth, int **traversed_path, int x_finish, int y_finish, int *size_traversed, int L, int C)
 {
-    if (x < 0 || y < 0 || x > L-1 || y > C-1) return;
-    if (traversed(x, y, traversed_path, L, C, &size_traversed) || labyrinth[x][y] > 0) return;
+    if (x < 0 || y < 0 || x > L-1 || y > C-1) return 0;
+    if (traversed(x, y, traversed_path, L, C, size_traversed) || labyrinth[x][y] > 0) return 0;
     //colocar no traversed_path
+    labyrinth[x][y] = -3;
     (*size_traversed)++;
     if (x == x_finish && y == y_finish)
     {
@@ -119,10 +120,10 @@ int try(int x,int y, int **labyrinth, int **traversed_path, int x_finish, int y_
     }
     else
     {
-        try(x - 1, y, labyrinth, traversed_path, x_finish, y_finish, &size_traversed, L, C);
-        try(x + 1, y, labyrinth, traversed_path, x_finish, y_finish, &size_traversed, L, C);
-        try(x, y + 1, labyrinth, traversed_path, x_finish, y_finish, &size_traversed, L, C);
-        try(x, y - 1, labyrinth, traversed_path, x_finish, y_finish, &size_traversed, L, C);
+        try(x - 1, y, labyrinth, traversed_path, x_finish, y_finish, size_traversed, L, C);
+        try(x + 1, y, labyrinth, traversed_path, x_finish, y_finish, size_traversed, L, C);
+        try(x, y + 1, labyrinth, traversed_path, x_finish, y_finish, size_traversed, L, C);
+        try(x, y - 1, labyrinth, traversed_path, x_finish, y_finish, size_traversed, L, C);
     }
     //tirar dos traversed_path
     return 0;
@@ -131,11 +132,10 @@ int try(int x,int y, int **labyrinth, int **traversed_path, int x_finish, int y_
 }
 */
 
-int mode_A6(int a, int b)
+int mode_A6(int a, int b, int l, int c, int **labyrinth, int **traversed_path, int *size_traversed, int L, int C)
 {
 
-    
-
+    return try(a, b, labyrinth, traversed_path, l, c, size_traversed, L, C);
     return 0;
 }
 
@@ -161,6 +161,6 @@ int choose_test(char *test_mode, int **labyrinth, int L, int C, int a, int b)
     if (strcmp(test_mode, "A5") == 0)
         return mode_A5(a, b, labyrinth, L, C);
     if (strcmp(test_mode, "A6") == 0)
-        return mode_A6(a, b);
+        return mode_A6(a, b, l, c, labyrinth, traversed_path, &size_traversed, L, C);
     return 0;
 }
