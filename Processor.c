@@ -95,7 +95,7 @@ int mode_A5(int a, int b, int **labyrinth, int L, int C)
     return 0;
 }
 
-
+/*
 int traversed(int x, int y, int **traversed_path, int L, int C, int *size_traversed)
 {
     int i;
@@ -130,7 +130,7 @@ int try(int x,int y, int **labyrinth, int **traversed_path, int x_finish, int y_
     
 
 }
-
+*/
 
 int mode_A6(int a, int b, int l, int c, int **labyrinth, int **traversed_path, int *size_traversed, int L, int C)
 {

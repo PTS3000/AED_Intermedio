@@ -39,14 +39,13 @@ no âmbito da Licenciatura Bolonha em Engenharia Eletrotécnica e de Computadore
 
 int main(int argc, char *argv[])
 {
-    int **labyrinth = NULL;
     FILE *fp_in = NULL;
     if (argc != 3)
     {
         help();
         exit(0);
     }
-    labyrinth = Read_input_file(fp_in, labyrinth, argv[2]);
+    Read_input_file(fp_in, argv[2]);
 
     return 0;
 }
