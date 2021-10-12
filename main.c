@@ -30,12 +30,32 @@ no âmbito da Licenciatura Bolonha em Engenharia Eletrotécnica e de Computadore
 
 int main(int argc, char *argv[])
 {
+    char *filename = NULL;
     if (argc != 3)
     {
         help();
         exit(0);
     }
-    Read_input_file(argv[2]);
+    if (strcmp(argv[1], "-s") == 0)
+    {
+        if ((filename = (char *)malloc((strlen(argv[2]) + 1) * sizeof(char))) == NULL)
+        {
+            printf("Error when trying to get memory to allocate input file name!\n");
+            exit(0);
+        }
+        strcpy(filename, argv[2]);
+    }
+    else
+    {
+        if ((filename = (char *)malloc((strlen(argv[1]) + 1) * sizeof(char))) == NULL)
+        {
+            printf("Error when trying to get memory to allocate input file name!\n");
+            exit(0);
+        }
+        strcpy(filename, argv[1]);
+    }
+    Read_input_file(filename);
+    free(filename);
     return 0;
 }
 

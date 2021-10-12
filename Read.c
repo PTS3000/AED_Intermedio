@@ -10,8 +10,6 @@
 
 void Read_input_file(char *filename)
 {
-    // int **traversed_path = NULL;
-    //int *size_traversed = NULL;
     int x = 0, y = 0, v = 0, count = 0, P = 0, result = 0; //P= number of grey/black cells, (x,y) = grey/black cells coordinates, v=value of respective cell
     int C = 0, L = 0, a = 0, b = 0, c = 0, d = 0;          // C=columns, L=lines, (a,b)=coordinates of the cell we want to analyse, P= number of grey/black cells
     int **labyrinth = NULL;
@@ -21,40 +19,37 @@ void Read_input_file(char *filename)
     FILE *fp_in = NULL, *fp_out = NULL;
 
     fp_in = open_inputfile(fp_in, filename);
-
     out_name = allocate_outputname(out_name, filename);
     fp_out = open_outputfile(fp_out, out_name);
-    while (fp_in != NULL)
+
+    while ((fscanf(fp_in, "%d %d", &L, &C)) == 2)
     {
-        if ((fscanf(fp_in, "%d %d", &L, &C)) != 2)
-            error(fp_in);
         if ((fscanf(fp_in, "%d %d %s", &a, &b, test_mode)) != 3)
-            error(fp_in);
+            error(fp_in, fp_out, out_name, filename);
 
         if (strcmp(test_mode, "A6") == 0)
             if ((fscanf(fp_in, "%d %d", &c, &d)) != 2)
-                error(fp_in);
+                error(fp_in, fp_out, out_name, filename);
+
+        if ((fscanf(fp_in, "%d", &P)) != 1)
+            error(fp_in, fp_out, out_name, filename);
 
         labyrinth = allocate_table(labyrinth, C, L); // Dynamic allocation of the main labyrinth
 
-        if ((fscanf(fp_in, "%d", &P)) != 1)
+        while (count < P)
         {
-            free_labyrinth(labyrinth, C);
-            error(fp_in);
-        }
-        while ((fscanf(fp_in, "%d %d %d", &x, &y, &v) == 3) && (count < P))
-        {
+            if ((fscanf(fp_in, "%d %d %d", &x, &y, &v) != 3))
+            {
+                free_labyrinth(labyrinth, C);
+                error(fp_in, fp_out, out_name, filename);
+            }
             labyrinth[x - 1][y - 1] = v; //remember that the coordinate (0,0) represents the (1,1) cell
             count++;
         }
-        //print_table(labyrinth, L, C);
-        /* result = choose_test(test_mode, labyrinth, L, C, a, b, c, d, traversed_path, size_traversed);
-        write_output_file(name, result, filename);
-        free_labyrinth(labyrinth, L, C);*/
-        result = choose_test(test_mode, labyrinth, L, C, a, b);
+        result = choose_test(test_mode, labyrinth, L, C, a, b, c, d);
         write_output(fp_out, result);
         free_labyrinth(labyrinth, C);
-        count = 0;
+     count = 0;
     }
     free(out_name);
     fclose(fp_in);
@@ -89,10 +84,13 @@ char *allocate_outputname(char *out_name, char *in_name)
     return out_name;
 }
 
-void error(FILE *fp)
+void error(FILE *fp_in, FILE *fp_out, char *filename_in, char *filename_out)
 {
-    printf("Error when reading the input file.\n");
-    fclose(fp);
+    printf("Error when reading data.\n");
+    fclose(fp_in);
+    fclose(fp_out);
+    free(filename_out);
+    free(filename_in);
     exit(0);
 }
 

@@ -3,7 +3,7 @@
 CC = gcc #compiler
 
 # flags para compilar
-CFLAGS= -Wall -std=c99 -O3
+CFLAGS= -Wall -std=c99 -O3 -g
 TARGET= RoaP_Int
 # gerar variáveis com listas ficheiros de cada tipo para usar nas várias regras
 SRCS=$(wildcard *.c)
