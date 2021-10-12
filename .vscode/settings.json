@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "typeinfo": "c",
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "proj_int.h": "c"
     }
 }

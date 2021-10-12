@@ -1,6 +1,6 @@
 #include "Proj_Int.h"
 
-void print_table(int **labyrinth, int L, int C)
+void print_table(short **labyrinth, int L, int C)
 {
     int i, j, lin;
     for (i = 1; i <= C; i++)

@@ -36,24 +36,7 @@ int main(int argc, char *argv[])
         help();
         exit(0);
     }
-    if (strcmp(argv[1], "-s") == 0)
-    {
-        if ((filename = (char *)malloc((strlen(argv[2]) + 1) * sizeof(char))) == NULL)
-        {
-            printf("Error when trying to get memory to allocate input file name!\n");
-            exit(0);
-        }
-        strcpy(filename, argv[2]);
-    }
-    else
-    {
-        if ((filename = (char *)malloc((strlen(argv[1]) + 1) * sizeof(char))) == NULL)
-        {
-            printf("Error when trying to get memory to allocate input file name!\n");
-            exit(0);
-        }
-        strcpy(filename, argv[1]);
-    }
+    filename=get_inputfilename(argv,filename);
     Read_input_file(filename);
     free(filename);
     return 0;
