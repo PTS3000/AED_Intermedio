@@ -24,8 +24,10 @@ void Read_input_file(char *filename)
 
     out_name = allocate_outputname(out_name, filename);
     fp_out = open_outputfile(fp_out, out_name);
-    while ((fscanf(fp_in, "%d %d", &L, &C)) == 2)
+    while (fp_in != NULL)
     {
+        if ((fscanf(fp_in, "%d %d", &L, &C)) != 2)
+            error(fp_in);
         if ((fscanf(fp_in, "%d %d %s", &a, &b, test_mode)) != 3)
             error(fp_in);
 
@@ -46,7 +48,7 @@ void Read_input_file(char *filename)
             count++;
         }
         //print_table(labyrinth, L, C);
-       /* result = choose_test(test_mode, labyrinth, L, C, a, b, c, d, traversed_path, size_traversed);
+        /* result = choose_test(test_mode, labyrinth, L, C, a, b, c, d, traversed_path, size_traversed);
         write_output_file(name, result, filename);
         free_labyrinth(labyrinth, L, C);*/
         result = choose_test(test_mode, labyrinth, L, C, a, b);

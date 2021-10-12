@@ -130,7 +130,7 @@ int try(int x,int y, int **labyrinth, int **traversed_path, int x_finish, int y_
     
 
 }
-*/
+
 
 int mode_A6(int a, int b, int l, int c, int **labyrinth, int **traversed_path, int *size_traversed, int L, int C)
 {
@@ -138,7 +138,7 @@ int mode_A6(int a, int b, int l, int c, int **labyrinth, int **traversed_path, i
     return try(a, b, labyrinth, traversed_path, l, c, size_traversed, L, C);
     return 0;
 }
-
+*/
 int **allocate_table(int **labyrinth, int C, int L)
 {
     int i;
