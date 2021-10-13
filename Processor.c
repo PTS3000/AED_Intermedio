@@ -97,7 +97,7 @@ int mode_A5(int a, int b, short **labyrinth, int L, int C)
 
 int mode_A6(int a, int b, int l, int c, short **labyrinth, int L, int C)
 {
-    if ((a<1||a>L) || (b<1 || b>C) || (l<1 || l>L) || (c<1 || c>C))
+    if ((a < 1 || a > L) || (b < 1 || b > C) || (l < 1 || l > L) || (c < 1 || c > C))
     {
         return -2;
     }
@@ -111,8 +111,8 @@ int mode_A6(int a, int b, int l, int c, short **labyrinth, int L, int C)
         free_pairs(pairs_data, n_pairs, L, C);
         exit(1);
     }
-    int start = get_index(a-1, b-1, C), finish = get_index(l-1, c-1, C), result = 0;
-    result = compressed_weighted_quick_union(id, (L * C) - 1, pairs_data, n_pairs, start, finish);
+    int start = get_index_sf(a, b, C), finish = get_index_sf(l, c, C), result = 0;
+    result = compressed_weighted_quick_union(id, (L * C), pairs_data, n_pairs, start, finish);
     free_pairs(pairs_data, n_pairs, L, C);
     free(id);
     return result;
@@ -172,8 +172,8 @@ short **create_pairs(short **labyrinth, int n_pairs, int L, int C)
             {
                 if ((labyrinth[i][j] == 0) && (labyrinth[i][j + 1] == 0))
                 {
-                    pairs[k][0] = get_index(j-1, i-1, C);
-                    pairs[k][1] = get_index(j, i-1, C);
+                    pairs[k][0] = get_index(j, i, C);
+                    pairs[k][1] = get_index(j + 1, i, C);
                     printf("%hd-%hd\n", pairs[k][0], pairs[k][1]);
                     k++;
                 }
@@ -182,8 +182,8 @@ short **create_pairs(short **labyrinth, int n_pairs, int L, int C)
             {
                 if ((labyrinth[i][j] == 0) && (labyrinth[i + 1][j] == 0))
                 {
-                    pairs[k][0] = get_index(j-1, i-1, C);
-                    pairs[k][1] = get_index(j-1, i, C);
+                    pairs[k][0] = get_index(j, i, C);
+                    pairs[k][1] = get_index(j, i + 1, C);
                     printf("%hd-%hd\n", pairs[k][0], pairs[k][1]);
                     k++;
                 }
@@ -211,13 +211,18 @@ short **create_pairs(short **labyrinth, int n_pairs, int L, int C)
 }
 int get_index(int y, int x, int C)
 {
-    return (((y) * C) + (x))+11;
+    return ((y * C) + x);
+}
+
+int get_index_sf(int y, int x, int C)
+{
+    return ((y * C) + x) - 11;
 }
 
 int compressed_weighted_quick_union(short *id, int N, short **pairs, int n_pairs, int start, int finish)
 {
 
-    int i, j, t, x;
+    int i, j, t, x, k;
     short *sz = (short *)malloc(N * sizeof(short));
     if (sz == NULL)
     {
@@ -230,7 +235,6 @@ int compressed_weighted_quick_union(short *id, int N, short **pairs, int n_pairs
         id[i] = i;
         sz[i] = 1;
     }
-    short k = 0;
     /* read while there is data */
     for (k = 0; k < n_pairs; k++)
     {
@@ -284,8 +288,7 @@ int compressed_weighted_quick_union(short *id, int N, short **pairs, int n_pairs
             }
         }
     }
-
-    printf("\n%d %d", start, finish);
+    printf("\n%d %d\n", start, finish);
     if (id[start] == id[finish])
         return 1;
     else
@@ -293,5 +296,4 @@ int compressed_weighted_quick_union(short *id, int N, short **pairs, int n_pairs
         return 0;
     }
     free(sz);
-    
 }

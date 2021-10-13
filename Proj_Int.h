@@ -30,4 +30,6 @@ int get_index(int x, int y, int C);
 short **create_pairs(short **labyrinth, int n_pairs, int L, int C);
 void free_pairs(short **pairs, int n_pairs, int L, int C);
 char *get_inputfilename(char **argv, char *filename);
+int get_index_sf(int y, int x, int C);
+
 #endif
