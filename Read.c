@@ -34,6 +34,7 @@ void Read_input_file(char *filename)
         if ((fscanf(fp_in, "%d", &P)) != 1)
             error(fp_in, fp_out, out_name, filename);
 
+
         labyrinth = allocate_table(labyrinth, C, L); // Dynamic allocation of the main labyrinth
 
         while (count < P)
