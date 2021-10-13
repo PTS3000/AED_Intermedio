@@ -46,3 +46,16 @@ void help(void)
 {
     printf("Esta é uma mensagem de Ajuda\n"); //FIXME: Create a better help message
 }
+
+
+
+//modo A1 feito não se fala mais
+
+//modo A2 feito não se fala mais
+
+//modo A3 feito não se fala mais
+
+//modo A5 feito não se fala mais
+
+//modo A5 feito não se fala mais
+

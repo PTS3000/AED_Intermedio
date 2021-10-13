@@ -26,13 +26,11 @@ void Read_input_file(char *filename)
     {
         if ((fscanf(fp_in, "%d %d %s", &a, &b, test_mode)) != 3)
             error(fp_in, fp_out, out_name, filename);
-a-=1;
-a-=1;
+
         if (strcmp(test_mode, "A6") == 0)
             if ((fscanf(fp_in, "%d %d", &c, &d)) != 2)
                 error(fp_in, fp_out, out_name, filename);
-a-=1;
-a-=1;
+
         if ((fscanf(fp_in, "%d", &P)) != 1)
             error(fp_in, fp_out, out_name, filename);
 
